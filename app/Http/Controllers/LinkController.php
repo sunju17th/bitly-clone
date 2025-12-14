@@ -22,19 +22,35 @@ class LinkController extends Controller
     // 2. Logic tạo link rút gọn (Store)
     public function store(Request $request)
     {
-        $request->validate(['original_url' => 'required|url']);
+        // 1. Validate dữ liệu
+        $request->validate([
+            'original_url' => 'required|url'
+        ]);
 
-        // ... đoạn code tạo short_code ...
-        do { $short_code = Str::random(6); } while (Link::where('short_code', $short_code)->exists());
+        // 2. KIỂM TRA TỒN TẠI 
+        // Tìm xem trong Database có link này của User này chưa?
+        $existingLink = Link::where('original_url', $request->original_url)
+                            ->where('user_id', Auth::id()) // Quan trọng: Chỉ check link của chính người đó
+                            ->first();
+
+        // Nếu tìm thấy, trả về luôn link cũ, không tạo mới nữa
+        if ($existingLink) {
+            return back()->with('success', 'Link này bạn đã rút gọn rồi: ' . url($existingLink->short_code));
+        }
+
+        // 3. Nếu chưa có thì mới tạo mới (Code cũ giữ nguyên)
+        do {
+            $short_code = Str::random(6);
+        } while (Link::where('short_code', $short_code)->exists());
 
         Link::create([
             'original_url' => $request->original_url,
             'short_code'   => $short_code,
-            'user_id'      => Auth::id(), // QUAN TRỌNG: Tự động lấy ID người đang login (hoặc null nếu là khách)
+            'user_id'      => Auth::id(),
             'visits'       => 0
         ]);
 
-        return back()->with('success', 'Link rút gọn: ' . url($short_code));
+        return back()->with('success', 'Link rút gọn mới: ' . url($short_code));
     }
 
     // 3. Logic chuyển hướng (Redirect)
