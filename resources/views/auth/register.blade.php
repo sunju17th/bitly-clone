@@ -66,7 +66,7 @@
             <div class="absolute w-96 h-96 bg-indigo-300 rounded-full mix-blend-multiply filter blur-3xl opacity-30 animate-blob animation-delay-2000 bottom-10 left-10"></div>
             
             <div class="relative z-10 text-center px-12">
-                <img src="https://illustrations.popsy.co/amber/launching-rocket.svg" alt="Register Illustration" class="w-3/4 mx-auto mb-8">
+                <img src="https://static.semrush.com/blog/uploads/media/d1/a0/d1a00d61b8421ac42c3b859d4d582056/extra.png" alt="Register Illustration" class="w-3/4 mx-auto mb-8">
                 <h2 class="text-3xl font-bold text-gray-800 mb-4">Bắt đầu hành trình của bạn</h2>
                 <p class="text-gray-600">Tham gia cùng hàng ngàn người dùng khác đang tối ưu hóa liên kết của họ mỗi ngày.</p>
             </div>
