@@ -65,14 +65,14 @@
                 <div class="mt-8 p-6 bg-green-50 border border-green-200 rounded-2xl inline-block shadow-sm animate-fade-in-up text-center">
                     <p class="text-green-800 font-medium mb-2">🎉 Link rút gọn của bạn:</p>
                     
-                    {{-- Link Text --}}
+
                     <div class="flex items-center justify-center gap-3 bg-white px-4 py-2 rounded-lg border border-green-100 mb-4">
                         <a href="{{ Str::after(session('success'), ': ') }}" target="_blank" class="text-2xl font-bold text-indigo-600 hover:underline">
                             {{ Str::after(session('success'), ': ') }}
                         </a>
                     </div>
 
-                    {{-- QR CODE SECTION (MỚI THÊM VÀO) --}}
+
                     <div class="flex flex-col items-center justify-center bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
                         <p class="text-xs text-gray-400 mb-2">Quét mã để truy cập nhanh</p>
                         {!! QrCode::size(150)->generate(Str::after(session('success'), ': ')) !!}
