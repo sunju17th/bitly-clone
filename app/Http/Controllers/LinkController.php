@@ -24,7 +24,17 @@ class LinkController extends Controller
     {
         // 1. Validate dữ liệu
         $request->validate([
-            'original_url' => 'required|url'
+            'original_url' => ['required', 'url', 'active_url', function ($attribute, $value, $fail) {
+                if (!preg_match('/^http(s)?:\/\//', $value)) {
+                    $fail('Đường dẫn phải bắt đầu bằng http:// hoặc https://');
+                }
+                // Basic Blacklist check (Ví dụ minh họa)
+                $blacklist = ['l.facebook.com', 'shady-site.com'];
+                $domain = parse_url($value, PHP_URL_HOST);
+                if (in_array($domain, $blacklist)) {
+                    $fail('Tên miền này bị cấm vì lý do bảo mật.');
+                }
+            }]
         ]);
 
         // 2. KIỂM TRA TỒN TẠI 

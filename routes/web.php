@@ -10,7 +10,9 @@ Route::get('/', function () {
 });
 
 // 2. Logic rút gọn link (Public)
-Route::post('/shorten', [LinkController::class, 'store'])->name('shorten');
+Route::post('/shorten', [LinkController::class, 'store'])
+    ->name('shorten')
+    ->middleware(['throttle:6,1']); // Chống Spam: Tối đa 6 lần/phút
 
 // 3. Nhóm các route yêu cầu Đăng nhập (Dashboard + Profile)
 Route::middleware('auth')->group(function () {
